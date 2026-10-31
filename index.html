@@ -4,20 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KROSSDROP | Exclusive Sneaker Store</title>
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <!-- Navbar / Header -->
     <header class="header">
+      <div class="hero-bg-slider">
+        <div class="hero-bg-slide slide-green"></div>
+        <div class="hero-bg-slide slide-blue"></div>
+        <div class="hero-bg-slide slide-red"></div>
+        <div class="hero-bg-slide slide-dark"></div>
+      </div>
+
       <div class="nav-container">
         <input type="checkbox" id="menu" class="menu-toggle" />
         <label for="menu" class="menu-icon" aria-label="Open navigation menu">
@@ -37,7 +40,7 @@
           <nav class="sidebar-nav">
             <a href="#" class="nav-link active">Bosh sahifa</a>
             <a href="./dokon.html" class="nav-link">Do'kon</a>
-            <a href="#" class="nav-link">Yangi kelganlar</a>
+            <a href="#brands" class="nav-link">Brendlar</a>
             <a href="./biz-haqimizda.html" class="nav-link">Biz haqimizda</a>
             <a href="./aloqa.html" class="nav-link">Aloqa</a>
           </nav>
@@ -50,7 +53,6 @@
         <ul class="nav-links">
           <li><a href="#" class="nav-link active">Bosh sahifa</a></li>
           <li><a href="./dokon.html" class="nav-link">Do'kon</a></li>
-          <li><a href="#" class="nav-link">Yangi kelganlar</a></li>
           <li>
             <a href="./biz-haqimizda.html" class="nav-link">Biz haqimizda</a>
           </li>
@@ -73,7 +75,12 @@
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </button>
-          <button class="icon-btn cart-btn" aria-label="Shopping Cart">
+
+          <button
+            id="cartBtn"
+            class="icon-btn cart-btn"
+            aria-label="Shopping Cart"
+          >
             <svg
               width="20"
               height="20"
@@ -90,13 +97,22 @@
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg>
-            <span class="cart-badge">2</span>
+            <span id="cartBadge" class="cart-badge">0</span>
           </button>
           <a href="./login.html" class="login-btn nav-btn">KIRISH</a>
         </div>
       </div>
+      <div class="hero-color-picker">
+        <input type="radio" name="hero-color" id="bg-1" checked />
+        <label for="bg-1" class="picker-dot dot-1" title="Volt Green"></label>
 
-      <!-- Hero Banner -->
+        <input type="radio" name="hero-color" id="bg-2" />
+        <label for="bg-2" class="picker-dot dot-2" title="Deep Blue"></label>
+
+        <input type="radio" name="hero-color" id="bg-3" />
+        <label for="bg-3" class="picker-dot dot-3" title="Neon Red"></label>
+      </div>
+
       <div class="hero-content">
         <div class="hero-tag">PREMIUM SNEAKER STORE</div>
         <h1 class="hero-title">BALAND QADAM TASHLA.</h1>
@@ -110,7 +126,7 @@
             <span class="price-val">1 890 000 so'm</span>
           </div>
           <div class="hero-buttons">
-            <a href="./birinchi.html" class="cta-primary">
+            <a href="#trending" class="cta-primary">
               <span>HOZIR SOTIB OLISH</span>
               <svg
                 width="18"
@@ -130,7 +146,26 @@
       </div>
     </header>
 
-    <!-- Infinite Brand Ticker -->
+    <div id="cartDrawerOverlay" class="cart-overlay"></div>
+    <aside id="cartDrawer" class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h3>SABATCHA (<span id="cartDrawerCount">0</span>)</h3>
+        <button id="closeCartBtn" class="cart-close-btn">&times;</button>
+      </div>
+      <div id="cartItemsContainer" class="cart-drawer-body">
+        <div class="cart-empty-msg">Sabatchangiz bo'sh</div>
+      </div>
+      <div class="cart-drawer-footer">
+        <div class="cart-total-row">
+          <span>JAMI:</span>
+          <span id="cartTotalPrice">0 so'm</span>
+        </div>
+        <button id="checkoutBtn" class="cta-primary checkout-btn">
+          BUYURTMA BERISH
+        </button>
+      </div>
+    </aside>
+
     <section class="ticker-wrapper">
       <div class="ticker-track">
         <div class="ticker-group">
@@ -167,9 +202,32 @@
         </div>
       </div>
     </section>
-
     <main>
-      <!-- Trending Products Section -->
+      <section id="brands" class="section-padding">
+        <div class="section-header center-header">
+          <span class="section-subtitle">TOP BRENDLAR</span>
+          <h2 class="section-title">RASMIY HAMKORLAR</h2>
+        </div>
+        <div class="brand-cards-grid">
+          <button class="brand-card filter-brand-btn" data-brand="Nike">
+            <h3>NIKE</h3>
+            <span>120+ Model</span>
+          </button>
+          <button class="brand-card filter-brand-btn" data-brand="Jordan">
+            <h3>JORDAN</h3>
+            <span>85+ Model</span>
+          </button>
+          <button class="brand-card filter-brand-btn" data-brand="Adidas">
+            <h3>ADIDAS</h3>
+            <span>95+ Model</span>
+          </button>
+          <button class="brand-card filter-brand-btn" data-brand="New Balance">
+            <h3>NEW BALANCE</h3>
+            <span>60+ Model</span>
+          </button>
+        </div>
+      </section>
+
       <section id="trending" class="section-padding">
         <div class="section-header">
           <div>
@@ -177,16 +235,20 @@
             <h2 class="section-title">HOZIR TRENDDA</h2>
           </div>
           <div class="category-pills">
-            <button class="pill-btn active">Hammasi</button>
-            <button class="pill-btn">Yugurish</button>
-            <button class="pill-btn">Lifestyle</button>
-            <button class="pill-btn">Basketbol</button>
-            <button class="pill-btn">Limited</button>
+            <button class="pill-btn active" data-filter="all">Hammasi</button>
+            <button class="pill-btn" data-filter="Running">Yugurish</button>
+            <button class="pill-btn" data-filter="Lifestyle">Lifestyle</button>
+            <button class="pill-btn" data-filter="Basketball">Basketbol</button>
+            <button class="pill-btn" data-filter="Limited">Limited</button>
           </div>
         </div>
 
         <div class="products-grid">
-          <article class="product-card">
+          <article
+            class="product-card"
+            data-category="Lifestyle"
+            data-brand="Nike"
+          >
             <div class="product-image-box">
               <span class="badge-tag">NEW</span>
               <img
@@ -194,13 +256,24 @@
                 alt="Nike Air Max Dn"
                 class="product-img"
               />
+              <button class="quick-view">TEZKOR KO'RISH</button>
             </div>
             <div class="product-info">
-              <span class="product-cat">Lifestyle • Unisex</span>
+              <div class="product-meta">
+                <span class="product-cat">Lifestyle • Unisex</span>
+                <span class="product-rating">★ 4.9</span>
+              </div>
               <h3 class="product-name">Nike Air Max Dn</h3>
               <div class="product-bottom">
                 <span class="product-price">1 650 000 so'm</span>
-                <button class="add-cart-btn" aria-label="Add to Cart">
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="1"
+                  data-name="Nike Air Max Dn"
+                  data-price="1650000"
+                  data-img="./images/Sneaker-1.png"
+                  aria-label="Add to Cart"
+                >
                   <svg
                     width="18"
                     height="18"
@@ -220,20 +293,35 @@
             </div>
           </article>
 
-          <article class="product-card">
+          <article
+            class="product-card"
+            data-category="Running"
+            data-brand="Adidas"
+          >
             <div class="product-image-box">
               <img
                 src="./images/Sneaker-2.png"
                 alt="Adidas Ultraboost Light"
                 class="product-img"
               />
+              <button class="quick-view">TEZKOR KO'RISH</button>
             </div>
             <div class="product-info">
-              <span class="product-cat">Running • Men</span>
+              <div class="product-meta">
+                <span class="product-cat">Running • Men</span>
+                <span class="product-rating">★ 4.8</span>
+              </div>
               <h3 class="product-name">Adidas Ultraboost Light</h3>
               <div class="product-bottom">
                 <span class="product-price">2 100 000 so'm</span>
-                <button class="add-cart-btn" aria-label="Add to Cart">
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="2"
+                  data-name="Adidas Ultraboost Light"
+                  data-price="2100000"
+                  data-img="./images/Sneaker-2.png"
+                  aria-label="Add to Cart"
+                >
                   <svg
                     width="18"
                     height="18"
@@ -253,20 +341,35 @@
             </div>
           </article>
 
-          <article class="product-card">
+          <article
+            class="product-card"
+            data-category="Lifestyle"
+            data-brand="New Balance"
+          >
             <div class="product-image-box">
               <img
                 src="./images/Sneaker-3.png"
                 alt="New Balance 990v6"
                 class="product-img"
               />
+              <button class="quick-view">TEZKOR KO'RISH</button>
             </div>
             <div class="product-info">
-              <span class="product-cat">Heritage • Grey</span>
+              <div class="product-meta">
+                <span class="product-cat">Heritage • Grey</span>
+                <span class="product-rating">★ 5.0</span>
+              </div>
               <h3 class="product-name">New Balance 990v6</h3>
               <div class="product-bottom">
                 <span class="product-price">1 920 000 so'm</span>
-                <button class="add-cart-btn" aria-label="Add to Cart">
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="3"
+                  data-name="New Balance 990v6"
+                  data-price="1920000"
+                  data-img="./images/Sneaker-3.png"
+                  aria-label="Add to Cart"
+                >
                   <svg
                     width="18"
                     height="18"
@@ -286,7 +389,11 @@
             </div>
           </article>
 
-          <article class="product-card">
+          <article
+            class="product-card"
+            data-category="Basketball"
+            data-brand="Jordan"
+          >
             <div class="product-image-box">
               <span class="badge-tag hot">HOT DROP</span>
               <img
@@ -294,13 +401,220 @@
                 alt="Air Jordan 4 Retro"
                 class="product-img"
               />
+              <button class="quick-view">TEZKOR KO'RISH</button>
             </div>
             <div class="product-info">
-              <span class="product-cat">Basketball • Thunder</span>
+              <div class="product-meta">
+                <span class="product-cat">Basketball • Thunder</span>
+                <span class="product-rating">★ 4.9</span>
+              </div>
               <h3 class="product-name">Air Jordan 4 Retro</h3>
               <div class="product-bottom">
                 <span class="product-price">3 200 000 so'm</span>
-                <button class="add-cart-btn" aria-label="Add to Cart">
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="4"
+                  data-name="Air Jordan 4 Retro"
+                  data-price="3200000"
+                  data-img="./images/Sneaker-4.png"
+                  aria-label="Add to Cart"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                    ></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-category="Basketball"
+            data-brand="Jordan"
+          >
+            <div class="product-image-box">
+              <span class="badge-tag hot">LIMITED</span>
+              <img
+                src="./images/Container (3).png"
+                alt="Jordan 1 High OG Dark Phantom"
+                class="product-img"
+              />
+              <button class="quick-view">TEZKOR KO'RISH</button>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="product-cat">Basketball • Phantom</span>
+                <span class="product-rating">★ 5.0</span>
+              </div>
+              <h3 class="product-name">Jordan 1 High Dark Phantom</h3>
+              <div class="product-bottom">
+                <span class="product-price">2 850 000 so'm</span>
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="5"
+                  data-name="Jordan 1 High Dark Phantom"
+                  data-price="2850000"
+                  data-img="./images/Container (3).png"
+                  aria-label="Add to Cart"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                    ></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-category="Lifestyle"
+            data-brand="Nike"
+          >
+            <div class="product-image-box">
+              <span class="badge-tag">TREND</span>
+              <img
+                src="./images/Sneaker-1.png"
+                alt="Nike Dunk Low Retro"
+                class="product-img"
+              />
+              <button class="quick-view">TEZKOR KO'RISH</button>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="product-cat">Lifestyle • Panda</span>
+                <span class="product-rating">★ 4.7</span>
+              </div>
+              <h3 class="product-name">Nike Dunk Low Retro</h3>
+              <div class="product-bottom">
+                <span class="product-price">1 450 000 so'm</span>
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="6"
+                  data-name="Nike Dunk Low Retro"
+                  data-price="1450000"
+                  data-img="./images/Sneaker-1.png"
+                  aria-label="Add to Cart"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                    ></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-category="Lifestyle"
+            data-brand="Adidas"
+          >
+            <div class="product-image-box">
+              <span class="badge-tag">NEW</span>
+              <img
+                src="./images/Sneaker-2.png"
+                alt="Adidas Forum Low"
+                class="product-img"
+              />
+              <button class="quick-view">TEZKOR KO'RISH</button>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="product-cat">Classic • White</span>
+                <span class="product-rating">★ 4.8</span>
+              </div>
+              <h3 class="product-name">Adidas Forum Low Premium</h3>
+              <div class="product-bottom">
+                <span class="product-price">1 380 000 so'm</span>
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="7"
+                  data-name="Adidas Forum Low Premium"
+                  data-price="1380000"
+                  data-img="./images/Sneaker-2.png"
+                  aria-label="Add to Cart"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                    ></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-category="Limited"
+            data-brand="New Balance"
+          >
+            <div class="product-image-box">
+              <span class="badge-tag hot">LIMITED</span>
+              <img
+                src="./images/Sneaker-3.png"
+                alt="New Balance 2002R Protection Pack"
+                class="product-img"
+              />
+              <button class="quick-view">TEZKOR KO'RISH</button>
+            </div>
+            <div class="product-info">
+              <div class="product-meta">
+                <span class="product-cat">Limited • Phantom</span>
+                <span class="product-rating">★ 4.9</span>
+              </div>
+              <h3 class="product-name">New Balance 2002R Protection</h3>
+              <div class="product-bottom">
+                <span class="product-price">2 400 000 so'm</span>
+                <button
+                  class="add-cart-btn js-add-to-cart"
+                  data-id="8"
+                  data-name="New Balance 2002R Protection"
+                  data-price="2400000"
+                  data-img="./images/Sneaker-3.png"
+                  aria-label="Add to Cart"
+                >
                   <svg
                     width="18"
                     height="18"
@@ -322,11 +636,14 @@
         </div>
 
         <div class="section-footer-cta">
-          <a href="./dokon.html" class="outline-btn">HAMMASINI KO'RISH</a>
+          <a href="./dokon.html"
+            ><button id="showMoreBtn" class="outline-btn">
+              KO'PROQ KO'RSATISH
+            </button></a
+          >
         </div>
       </section>
 
-      <!-- Exclusive Drop Banner with Timer -->
       <section class="section-padding drop-banner-wrapper">
         <div class="drop-banner">
           <div class="drop-content">
@@ -339,27 +656,33 @@
 
             <div class="countdown-timer">
               <div class="timer-box">
-                <span class="timer-value">02</span>
+                <span id="timerDays" class="timer-value">00</span>
                 <span class="timer-label">KUN</span>
               </div>
               <div class="timer-separator">:</div>
               <div class="timer-box">
-                <span class="timer-value">14</span>
+                <span id="timerHours" class="timer-value">00</span>
                 <span class="timer-label">SOAT</span>
               </div>
               <div class="timer-separator">:</div>
               <div class="timer-box">
-                <span class="timer-value">45</span>
+                <span id="timerMinutes" class="timer-value">00</span>
                 <span class="timer-label">DAQIQA</span>
               </div>
               <div class="timer-separator">:</div>
               <div class="timer-box">
-                <span class="timer-value">12</span>
+                <span id="timerSeconds" class="timer-value">00</span>
                 <span class="timer-label">SONIYA</span>
               </div>
             </div>
 
-            <a href="./aloqa.html" class="cta-primary">
+            <button
+              class="cta-primary js-add-to-cart"
+              data-id="5"
+              data-name="Jordan 1 High Dark Phantom"
+              data-price="2850000"
+              data-img="./images/Container (3).png"
+            >
               <svg
                 width="20"
                 height="20"
@@ -368,11 +691,14 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                <path
+                  d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                ></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
               </svg>
-              <span>MENGA XABAR BERING</span>
-            </a>
+              <span>HOZIR SOTIB OLISH</span>
+            </button>
           </div>
           <div class="drop-image-wrap">
             <img
@@ -384,10 +710,10 @@
         </div>
       </section>
 
-      <!-- Category Spotlight -->
       <section class="section-padding">
         <div class="category-grid">
           <div class="category-card cat-men">
+            <div class="cat-overlay"></div>
             <div class="cat-content">
               <h3>ERKAKLAR</h3>
               <a href="./dokon.html" class="cat-link">
@@ -408,6 +734,7 @@
           </div>
 
           <div class="category-card cat-women">
+            <div class="cat-overlay"></div>
             <div class="cat-content">
               <h3>AYOLLAR</h3>
               <a href="./dokon.html" class="cat-link">
@@ -428,6 +755,7 @@
           </div>
 
           <div class="category-card cat-kids">
+            <div class="cat-overlay"></div>
             <div class="cat-content">
               <h3>BOLALAR</h3>
               <a href="./dokon.html" class="cat-link">
@@ -449,7 +777,21 @@
         </div>
       </section>
 
-      <!-- Store Features / Cyber Perks Grid -->
+      <section class="section-padding vip-banner">
+        <div class="vip-container">
+          <div class="vip-text">
+            <span class="section-subtitle">KROSSDROP CLUB</span>
+            <h2>EKSKLYUZIV A'ZOLIK VA VIP IMTIYOZLAR</h2>
+            <p>
+              Klubimizga qo'shiling va birinchi xaridingiz uchun 10% chegirma
+              hamda maxsus drop'larga birinchilardan bo'lib kirish huquqini
+              qo'lga kiriting.
+            </p>
+          </div>
+          <a href="./login.html" class="cta-primary">KLUBGA QO'SHILISH</a>
+        </div>
+      </section>
+
       <section class="section-padding features-section">
         <div class="features-grid">
           <div class="feature-card">
@@ -526,6 +868,7 @@
           </div>
         </div>
       </section>
+
       <section class="section-padding">
         <div class="section-header center-header">
           <span class="section-subtitle">MIJOZLARIMIZ FIKRI</span>
@@ -591,6 +934,32 @@
           </div>
         </div>
       </section>
+
+      <section class="section-padding">
+        <div class="section-header center-header">
+          <span class="section-subtitle">INSTAGRAM @KROSSDROP</span>
+          <h2 class="section-title">BIZNING STILIMIZ</h2>
+        </div>
+        <div class="insta-grid">
+          <div class="insta-item">
+            <img src="./images/Sneaker-1.png" alt="Krossdrop Style" />
+            <div class="insta-overlay"><span>@KROSSDROP</span></div>
+          </div>
+          <div class="insta-item">
+            <img src="./images/Sneaker-2.png" alt="Krossdrop Style" />
+            <div class="insta-overlay"><span>@KROSSDROP</span></div>
+          </div>
+          <div class="insta-item">
+            <img src="./images/Sneaker-3.png" alt="Krossdrop Style" />
+            <div class="insta-overlay"><span>@KROSSDROP</span></div>
+          </div>
+          <div class="insta-item">
+            <img src="./images/Sneaker-4.png" alt="Krossdrop Style" />
+            <div class="insta-overlay"><span>@KROSSDROP</span></div>
+          </div>
+        </div>
+      </section>
+
       <section class="section-padding">
         <div class="newsletter-card">
           <div class="newsletter-info">
@@ -600,7 +969,12 @@
               bo'lib ma'lumot oling.
             </p>
           </div>
-          <form class="newsletter-form" onsubmit="event.preventDefault()">
+          <form
+            class="newsletter-form"
+            action="#"
+            method="GET"
+            id="newsletterForm"
+          >
             <input
               type="email"
               placeholder="Emailingizni kiriting"
@@ -612,6 +986,7 @@
         </div>
       </section>
     </main>
+
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-col brand-col">
@@ -621,28 +996,46 @@
             eksklyuziv modellar.
           </p>
           <div class="social-links">
-            <a href="#" class="social-icon">FB</a>
-            <a href="#" class="social-icon">IG</a>
-            <a href="#" class="social-icon">TG</a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener"
+              class="social-icon"
+              >FB</a
+            >
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener"
+              class="social-icon"
+              >IG</a
+            >
+            <a
+              href="https://t.me"
+              target="_blank"
+              rel="noopener"
+              class="social-icon"
+              >TG</a
+            >
           </div>
         </div>
 
         <div class="footer-col">
           <h4 class="footer-title">DO'KON</h4>
           <ul class="footer-links">
-            <li><a href="#">Yugurish poyabzallari</a></li>
-            <li><a href="#">Lifestyle modellar</a></li>
-            <li><a href="#">Basketbol kolleksiyasi</a></li>
-            <li><a href="#">Cheklangan nashrlar</a></li>
+            <li><a href="#trending">Yugurish poyabzallari</a></li>
+            <li><a href="#trending">Lifestyle modellar</a></li>
+            <li><a href="#trending">Basketbol kolleksiyasi</a></li>
+            <li><a href="#trending">Cheklangan nashrlar</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4 class="footer-title">YORDAM</h4>
           <ul class="footer-links">
-            <li><a href="#">Yetkazib berish</a></li>
-            <li><a href="#">Qaytarish va almashtirish</a></li>
-            <li><a href="#">To'lov usullari</a></li>
-            <li><a href="#">FAQ</a></li>
+            <li><a href="./aloqa.html">Yetkazib berish</a></li>
+            <li><a href="./aloqa.html">Qaytarish va almashtirish</a></li>
+            <li><a href="./aloqa.html">To'lov usullari</a></li>
+            <li><a href="./aloqa.html">FAQ</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -660,5 +1053,208 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      let cart = [];
+
+      const cartBtn = document.getElementById("cartBtn");
+      const closeCartBtn = document.getElementById("closeCartBtn");
+      const cartDrawer = document.getElementById("cartDrawer");
+      const cartDrawerOverlay = document.getElementById("cartDrawerOverlay");
+      const cartItemsContainer = document.getElementById("cartItemsContainer");
+      const cartBadge = document.getElementById("cartBadge");
+      const cartDrawerCount = document.getElementById("cartDrawerCount");
+      const cartTotalPrice = document.getElementById("cartTotalPrice");
+      const checkoutBtn = document.getElementById("checkoutBtn");
+
+      function formatPrice(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " so'm";
+      }
+
+      function openCart() {
+        cartDrawer.classList.add("open");
+        cartDrawerOverlay.classList.add("open");
+      }
+
+      function closeCart() {
+        cartDrawer.classList.remove("open");
+        cartDrawerOverlay.classList.remove("open");
+      }
+
+      cartBtn.addEventListener("click", openCart);
+      closeCartBtn.addEventListener("click", closeCart);
+      cartDrawerOverlay.addEventListener("click", closeCart);
+
+      function updateCartUI() {
+        const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartBadge.textContent = totalCount;
+        cartDrawerCount.textContent = totalCount;
+
+        const totalSum = cart.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0,
+        );
+        cartTotalPrice.textContent = formatPrice(totalSum);
+
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML =
+            '<div class="cart-empty-msg">Sabatchangiz bo\'sh</div>';
+          return;
+        }
+
+        cartItemsContainer.innerHTML = "";
+        cart.forEach((item) => {
+          const itemEl = document.createElement("div");
+          itemEl.className = "cart-item";
+          itemEl.innerHTML = `
+            <img src="${item.img}" alt="${item.name}" class="cart-item-img" />
+            <div class="cart-item-details">
+              <h4 class="cart-item-title">${item.name}</h4>
+              <span class="cart-item-price">${formatPrice(item.price)}</span>
+              <div class="cart-item-qty">
+                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                <span>${item.quantity}</span>
+                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+              </div>
+            </div>
+            <button class="cart-remove-btn" onclick="removeFromCart(${item.id})">&times;</button>
+          `;
+          cartItemsContainer.appendChild(itemEl);
+        });
+      }
+
+      function addToCart(id, name, price, img) {
+        const existingIndex = cart.findIndex((item) => item.id === id);
+        if (existingIndex > -1) {
+          cart[existingIndex].quantity += 1;
+        } else {
+          cart.push({ id, name, price: Number(price), img, quantity: 1 });
+        }
+        updateCartUI();
+        openCart();
+      }
+
+      window.changeQty = function (id, delta) {
+        const item = cart.find((i) => i.id === id);
+        if (!item) return;
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+          cart = cart.filter((i) => i.id !== id);
+        }
+        updateCartUI();
+      };
+
+      window.removeFromCart = function (id) {
+        cart = cart.filter((i) => i.id !== id);
+        updateCartUI();
+      };
+
+      document.addEventListener("click", function (e) {
+        const btn = e.target.closest(".js-add-to-cart");
+        if (btn) {
+          const id = Number(btn.dataset.id);
+          const name = btn.dataset.name;
+          const price = btn.dataset.price;
+          const img = btn.dataset.img;
+          addToCart(id, name, price, img);
+        }
+      });
+
+      checkoutBtn.addEventListener("click", function () {
+        if (cart.length === 0) {
+          alert("Sabatchangiz bo'sh!");
+          return;
+        }
+        alert(
+          "Buyurtmangiz qabul qilindi! Operatorlarimiz tez orada siz bilan bog'lanishadi.",
+        );
+        cart = [];
+        updateCartUI();
+        closeCart();
+      });
+
+      const targetDate =
+        new Date().getTime() +
+        2 * 24 * 60 * 60 * 1000 +
+        14 * 60 * 60 * 1000 +
+        45 * 60 * 1000 +
+        12 * 1000;
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+          document.getElementById("timerDays").textContent = "00";
+          document.getElementById("timerHours").textContent = "00";
+          document.getElementById("timerMinutes").textContent = "00";
+          document.getElementById("timerSeconds").textContent = "00";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timerDays").textContent =
+          days < 10 ? "0" + days : days;
+        document.getElementById("timerHours").textContent =
+          hours < 10 ? "0" + hours : hours;
+        document.getElementById("timerMinutes").textContent =
+          minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("timerSeconds").textContent =
+          seconds < 10 ? "0" + seconds : seconds;
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      const pillBtns = document.querySelectorAll(".pill-btn");
+      const productCards = document.querySelectorAll(".product-card");
+
+      pillBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          pillBtns.forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+          const filter = this.dataset.filter;
+
+          productCards.forEach((card) => {
+            if (filter === "all" || card.dataset.category === filter) {
+              card.style.display = "flex";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      const brandBtns = document.querySelectorAll(".filter-brand-btn");
+      brandBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const brand = this.dataset.brand;
+          productCards.forEach((card) => {
+            if (card.dataset.brand === brand) {
+              card.style.display = "flex";
+            } else {
+              card.style.display = "none";
+            }
+          });
+          document
+            .getElementById("trending")
+            .scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      document
+        .getElementById("newsletterForm")
+        ?.addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Muvaffaqiyatli obuna bo'ldingiz!");
+          this.reset();
+        });
+    </script>
   </body>
 </html>

@@ -3,132 +3,252 @@
   padding: 0;
   box-sizing: border-box;
 }
-section {
-  width: 100%;
-  height: 100vh;
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #08080a;
+  color: #f4f2ed;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(./images/back-img.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #000000cc;
+  overflow: hidden;
+  position: relative;
 }
-.wrapper {
+
+#bg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.section-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   max-width: 448px;
+  padding: 20px;
+  perspective: 1000px;
+}
+
+.wrapper {
+  background: rgba(22, 22, 26, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 40px 36px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #ffffff14;
-  border-radius: 24px;
-  gap: 31.5px;
-  background-color: #16161a99;
-  backdrop-filter: blur(20px);
-  padding: 40px;
+  gap: 28px;
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(214, 255, 63, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
 }
+
+.wrapper:hover {
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.7),
+    0 0 50px rgba(214, 255, 63, 0.12);
+}
+
 .imgs {
-  height: 22px;
   display: flex;
-  justify-content: end;
-  cursor: pointer;
+  justify-content: flex-end;
 }
+
+.close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b6b4ba;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(214, 255, 63, 0.2);
+  color: #d6ff3f;
+  transform: rotate(90deg) scale(1.1);
+}
+
 .wrapper-texts {
   display: flex;
   flex-direction: column;
   gap: 8px;
   text-align: center;
 }
+
 .text {
-  font-family: Archivo Narrow;
+  font-family: 'Archivo Narrow', sans-serif;
   font-weight: 700;
-  font-style: Bold;
   font-size: 32px;
   line-height: 38px;
-  letter-spacing: 0.64px;
-  text-align: center;
-  vertical-align: middle;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: #f4f2ed;
+  background: linear-gradient(135deg, #ffffff 0%, #b6b4ba 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 .text-1 {
-  font-family: Space Grotesk;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
-  vertical-align: middle;
+  font-size: 15px;
+  line-height: 22px;
   color: #b6b4ba;
 }
+
 .login {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
-.login-login {
+
+.login-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  font-family: Space Grotesk;
+  gap: 6px;
+}
+
+.text-2 {
+  font-size: 11px;
   font-weight: 700;
-  font-style: Bold;
-  font-size: 12px;
   line-height: 16px;
   letter-spacing: 1.2px;
-  vertical-align: middle;
   text-transform: uppercase;
   color: #c5c9ae;
+  display: flex;
+  justify-content: space-between;
 }
+
+.input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-field i.field-icon {
+  position: absolute;
+  left: 14px;
+  color: #6b7280;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
 .inpt {
-  width: 366px;
-  height: 40px;
-  border-bottom: 1px solid #6b7280;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 12px;
+  width: 100%;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 10px 14px 10px 42px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.3s ease;
 }
+
+.inpt:focus {
+  border-color: #d6ff3f;
+  background: rgba(214, 255, 63, 0.03);
+  box-shadow: 0 0 15px rgba(214, 255, 63, 0.15);
+}
+
+.inpt:focus + i.field-icon {
+  color: #d6ff3f;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: #d6ff3f;
+}
+
+.strength-bar {
+  height: 3px;
+  width: 0%;
+  background: #ef4444;
+  border-radius: 2px;
+  margin-top: 4px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
 .btn {
-  width: 366px;
+  width: 100%;
   height: 52px;
   border: none;
   border-radius: 50px;
-  background-color: #d6ff3f;
-  font-family: Space Grotesk;
-  font-weight: 600;
-  font-style: Bold;
+  background: #d6ff3f;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
   font-size: 14px;
-  line-height: 20px;
   letter-spacing: 1.4px;
-  text-align: center;
-  vertical-align: middle;
   text-transform: uppercase;
   color: #000000;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 20px rgba(214, 255, 63, 0.3);
 }
+
+.btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(214, 255, 63, 0.5);
+  background: #e2ff66;
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
 .profiles {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.pofile-text {
-  font-family: Space Grotesk;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
-  vertical-align: middle;
+
+.profile-text {
+  font-size: 15px;
   color: #b6b4ba;
 }
+
 .kirish {
-  font-family: Space Grotesk;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
-  vertical-align: middle;
   color: #d6ff3f;
-  margin-left: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 6px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.kirish::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #d6ff3f;
+  transition: width 0.3s ease;
+}
+
+.kirish:hover::after {
+  width: 100%;
 }

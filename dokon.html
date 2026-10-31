@@ -7,40 +7,43 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;700&family=Space+Grotesk:wght@300;400;500;700&family=Archivo+Narrow:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@300;400;500;600;700&family=Archivo+Narrow:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./dokon.css" />
   </head>
   <body>
-    <input type="radio" name="cat" id="cat-all" class="filter-radio" checked />
-    <input type="radio" name="cat" id="cat-running" class="filter-radio" />
-    <input type="radio" name="cat" id="cat-lifestyle" class="filter-radio" />
-    <input type="radio" name="cat" id="cat-basketball" class="filter-radio" />
-    <input type="radio" name="cat" id="cat-football" class="filter-radio" />
-    <input type="radio" name="cat" id="cat-skate" class="filter-radio" />
-    <input type="radio" name="cat" id="cat-limited" class="filter-radio" />
-
-    <input type="checkbox" id="brand-nike" class="filter-radio" checked />
-    <input type="checkbox" id="brand-jordan" class="filter-radio" checked />
-    <input type="checkbox" id="brand-adidas" class="filter-radio" checked />
-    <input type="checkbox" id="brand-nb" class="filter-radio" checked />
-
-    <input
-      type="radio"
-      name="size"
-      id="size-all"
-      class="filter-radio"
-      checked
-    />
-    <input type="radio" name="size" id="size-38" class="filter-radio" />
-    <input type="radio" name="size" id="size-39" class="filter-radio" />
-    <input type="radio" name="size" id="size-40" class="filter-radio" />
-    <input type="radio" name="size" id="size-41" class="filter-radio" />
-    <input type="radio" name="size" id="size-42" class="filter-radio" />
-    <input type="radio" name="size" id="size-43" class="filter-radio" />
-
     <input type="checkbox" id="menu" class="menu-toggle" />
+
+    <div class="search-modal" id="searchModal">
+      <div class="search-modal-content">
+        <div class="search-input-wrapper">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" id="searchInput" placeholder="Krossovka yoki brend nomini kiriting..." />
+          <button class="search-close-btn" id="closeSearchModal">&times;</button>
+        </div>
+        <div class="search-results-container" id="searchResults"></div>
+      </div>
+    </div>
+
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="cart-header">
+        <h2>SAVATCHA (<span id="cartCountHeader">0</span>)</h2>
+        <button class="cart-close-btn" id="closeCartDrawer">&times;</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>JAMI:</span>
+          <span id="cartTotalPrice">0 so'm</span>
+        </div>
+        <button class="checkout-btn">BUYURTMANI RASMIYLASHTIRISH</button>
+      </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
 
     <header>
       <div class="container">
@@ -54,7 +57,6 @@
           <nav>
             <a href="./index.html">Bosh sahifa</a>
             <a href="#" class="active">Do'kon</a>
-            <a href="#">Yangi kelganlar</a>
             <a href="./biz-haqimizda.html">Biz haqimizda</a>
             <a href="./aloqa.html">Aloqa</a>
           </nav>
@@ -64,51 +66,29 @@
         <ul class="links">
           <li><a href="./index.html">Bosh sahifa</a></li>
           <li><a href="#" class="active">Do'kon</a></li>
-          <li><a href="#">Yangi kelganlar</a></li>
           <li><a href="./biz-haqimizda.html">Biz haqimizda</a></li>
           <li><a href="./aloqa.html">Aloqa</a></li>
         </ul>
         <div class="content">
-          <div class="content-icon-btn">
-            <svg
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
+          <div class="content-icon-btn" id="openSearchBtn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
-          <div class="content-icon-btn">
-            <svg
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-              />
+          <div class="content-icon-btn badge-container" id="wishlistTrigger">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
+            <span class="icon-badge" id="wishlistBadge">0</span>
           </div>
-          <div class="content-icon-btn">
-            <svg
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
+          <div class="content-icon-btn badge-container" id="cartTrigger">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
+            <span class="icon-badge" id="cartBadge">0</span>
           </div>
           <a href="./login.html" class="header-btn">KIRISH</a>
         </div>
@@ -122,28 +102,16 @@
         </h2>
         <h2 class="sahifa-barcha-text">
           BARCHA KROSSOVKALAR
-          <span class="sahifa-barcha-text-span">(248 TA MAHSULOT)</span>
+          <span class="sahifa-barcha-text-span" id="totalProductsCount">(248 TA MAHSULOT)</span>
         </h2>
-        <div class="divs">
-          <label for="cat-all" class="filter-chip chip-all">Hammasi</label>
-          <label for="cat-running" class="filter-chip chip-running"
-            >Yugurish</label
-          >
-          <label for="cat-lifestyle" class="filter-chip chip-lifestyle"
-            >Lifestyle</label
-          >
-          <label for="cat-basketball" class="filter-chip chip-basketball"
-            >Basketbol</label
-          >
-          <label for="cat-football" class="filter-chip chip-football"
-            >Futbol</label
-          >
-          <label for="cat-skate" class="filter-chip chip-skate"
-            >Skeytbord</label
-          >
-          <label for="cat-limited" class="filter-chip chip-limited"
-            >Limited Edition</label
-          >
+        <div class="divs" id="categoryChips">
+          <button class="filter-chip active" data-cat="all">Hammasi</button>
+          <button class="filter-chip" data-cat="running">Yugurish</button>
+          <button class="filter-chip" data-cat="lifestyle">Lifestyle</button>
+          <button class="filter-chip" data-cat="basketball">Basketbol</button>
+          <button class="filter-chip" data-cat="football">Futbol</button>
+          <button class="filter-chip" data-cat="skate">Skeytbord</button>
+          <button class="filter-chip" data-cat="limited">Limited Edition</button>
         </div>
       </section>
 
@@ -153,20 +121,24 @@
             <div class="brend-div">
               <h3 class="brend-text">BREND</h3>
             </div>
-            <div class="input-divs">
-              <label for="brand-nike" class="input-div">
+            <div class="input-divs" id="brandFilters">
+              <label class="input-div">
+                <input type="checkbox" value="nike" class="filter-checkbox" checked />
                 <span class="custom-cb"></span>
                 <span class="text-1">Nike</span>
               </label>
-              <label for="brand-jordan" class="input-div">
+              <label class="input-div">
+                <input type="checkbox" value="jordan" class="filter-checkbox" checked />
                 <span class="custom-cb"></span>
                 <span class="text-1">Jordan</span>
               </label>
-              <label for="brand-adidas" class="input-div">
+              <label class="input-div">
+                <input type="checkbox" value="adidas" class="filter-checkbox" checked />
                 <span class="custom-cb"></span>
                 <span class="text-1">Adidas</span>
               </label>
-              <label for="brand-nb" class="input-div">
+              <label class="input-div">
+                <input type="checkbox" value="nb" class="filter-checkbox" checked />
                 <span class="custom-cb"></span>
                 <span class="text-1">New Balance</span>
               </label>
@@ -177,289 +149,63 @@
             <div class="brend-div">
               <h3 class="brend-text">O'LCHAM</h3>
             </div>
-            <div class="numbers">
-              <label for="size-38" class="number lbl-38">38</label>
-              <label for="size-39" class="number lbl-39">39</label>
-              <label for="size-40" class="number lbl-40">40</label>
-              <label for="size-41" class="number lbl-41">41</label>
-              <label for="size-42" class="number lbl-42">42</label>
-              <label for="size-43" class="number lbl-43">43</label>
+            <div class="numbers" id="sizeFilters">
+              <button class="number" data-size="38">38</button>
+              <button class="number" data-size="39">39</button>
+              <button class="number" data-size="40">40</button>
+              <button class="number" data-size="41">41</button>
+              <button class="number" data-size="42">42</button>
+              <button class="number" data-size="43">43</button>
             </div>
           </div>
 
           <div class="narx">
             <div class="brend-div">
-              <h3 class="brend-text">NARX</h3>
+              <h3 class="brend-text">MAX NARX</h3>
             </div>
             <div class="inpts">
-              <input
-                type="text"
-                class="number-inpt"
-              />
+              <input type="range" id="priceRange" min="500000" max="5000000" step="100000" value="5000000" class="range-slider" />
               <div class="som-som">
                 <span class="som">500k so'm</span>
-                <span class="som">5m so'm</span>
+                <span class="som" id="priceOutput">5m so'm</span>
               </div>
             </div>
           </div>
 
           <div class="buttons">
-            <a href="./dokon-stil.html" class="filter-a"
-              ><button for="cat-all" class="btn-filter">
-                FILTRNI QO'LLASH
-              </button></a
-            >
-            <label for="cat-all" class="toz-reset">
-              <label for="size-all" class="toz-reset-inner">TOZALASH</label>
-            </label>
+            <a href="./dokon-stil.html"><button class="btn-filter" id="applyFilterBtn">FILTRNI QO'LLASH</button></a>
+            <button class="toz-reset" id="resetFilterBtn">TOZALASH</button>
           </div>
         </aside>
 
         <div class="content-wrapper">
           <div class="tanlash">
-            <div class="tanlash-cards">
-              <label for="brand-nike" class="nike-button"> NIKE &times; </label>
-              <label for="size-all" class="nike-button">
-                O'LCHAM SROSI &times;
-              </label>
-            </div>
+            <div class="tanlash-cards" id="activeFiltersContainer"></div>
 
             <div class="saralash">
               <div class="filter-container-custom">
                 <span class="filter-label">SARALASH:</span>
-                <span class="filter-selected">Eng yangilar</span>
+                <select id="sortSelect" class="sort-dropdown">
+                  <option value="newest">Eng yangilar</option>
+                  <option value="price-low">Arzonroq</option>
+                  <option value="price-high">Qimmatroq</option>
+                  <option value="name">Nomi bo'yicha</option>
+                </select>
               </div>
             </div>
           </div>
 
-          <div class="catalog-grid">
-            <div
-              class="product-item brand-nike cat-running cat-lifestyle size-40 size-41"
-            >
-              <div class="card-header">
-                <span class="badge badge--lime">TREND</span>
-                <input type="checkbox" id="fav-1" class="fav-check" />
-                <label for="fav-1" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"
-                    alt="Nike Air Max Pulse"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">NIKE SPORTSWEAR</span>
-                <h3 class="product-title">Nike Air Max Pulse</h3>
-                <div class="price-group">
-                  <span class="price-now">1 450 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="product-item brand-adidas cat-lifestyle size-38 size-39 size-42"
-            >
-              <div class="card-header">
-                <span class="badge badge--pink">NEW</span>
-                <input type="checkbox" id="fav-2" class="fav-check" />
-                <label for="fav-2" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=600&q=80"
-                    alt="Adidas Forum Low"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">ADIDAS ORIGINALS</span>
-                <h3 class="product-title">Adidas Forum Low</h3>
-                <div class="price-group">
-                  <span class="price-now">980 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="product-item brand-nb cat-limited cat-lifestyle size-41 size-42 size-43"
-            >
-              <div class="card-header">
-                <span class="badge badge--white">LIMITED</span>
-                <input type="checkbox" id="fav-3" class="fav-check" />
-                <label for="fav-3" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=600&q=80"
-                    alt="NB 2002R"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">NEW BALANCE</span>
-                <h3 class="product-title">NB 2002R Protection Pack</h3>
-                <div class="price-group">
-                  <span class="price-now">2 100 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="product-item brand-jordan cat-basketball size-40 size-42"
-            >
-              <div class="card-header">
-                <span class="badge badge--lime">HOT</span>
-                <input type="checkbox" id="fav-4" class="fav-check" />
-                <label for="fav-4" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80"
-                    alt="Air Jordan"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">JORDAN</span>
-                <h3 class="product-title">Air Jordan 1 High OG</h3>
-                <div class="price-group">
-                  <span class="price-now">1 500 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="product-item brand-adidas cat-lifestyle size-39 size-40 size-43"
-            >
-              <div class="card-header">
-                <span class="badge badge--pink">POPULAR</span>
-                <input type="checkbox" id="fav-5" class="fav-check" />
-                <label for="fav-5" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=600&q=80"
-                    alt="Yeezy"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">ADIDAS / YEEZY</span>
-                <h3 class="product-title">Yeezy Boost 350 V2</h3>
-                <div class="price-group">
-                  <span class="price-now">1 600 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="product-item brand-nike cat-running size-38 size-40 size-41"
-            >
-              <div class="card-header">
-                <span class="badge badge--white">SPECIAL</span>
-                <input type="checkbox" id="fav-6" class="fav-check" />
-                <label for="fav-6" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=600&q=80"
-                    alt="ASICS"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">NIKE RUNNING</span>
-                <h3 class="product-title">Nike Pegasus Trail 4</h3>
-                <div class="price-group">
-                  <span class="price-now">1 350 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-item brand-nike cat-football size-39 size-42">
-              <div class="card-header">
-                <span class="badge badge--lime">NEW</span>
-                <input type="checkbox" id="fav-7" class="fav-check" />
-                <label for="fav-7" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=600&q=80"
-                    alt="Nike Mercurial"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">NIKE FOOTBALL</span>
-                <h3 class="product-title">Nike Vapor 15 Elite</h3>
-                <div class="price-group">
-                  <span class="price-now">1 800 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="product-item brand-nike cat-skate size-40 size-41 size-42"
-            >
-              <div class="card-header">
-                <span class="badge badge--pink">SALE</span>
-                <input type="checkbox" id="fav-8" class="fav-check" />
-                <label for="fav-8" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=600&q=80"
-                    alt="Nike SB Dunk"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">NIKE SB</span>
-                <h3 class="product-title">Nike SB Dunk Low Pro</h3>
-                <div class="price-group">
-                  <span class="price-now">1 100 000 so'm</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="product-item brand-nb cat-running cat-lifestyle size-38 size-42 size-43"
-            >
-              <div class="card-header">
-                <span class="badge badge--white">EXCLUSIVE</span>
-                <input type="checkbox" id="fav-9" class="fav-check" />
-                <label for="fav-9" class="wishlist-btn"></label>
-                <div class="image-holder">
-                  <img
-                    class="imgg"
-                    src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80"
-                    alt="NB 990v5"
-                  />
-                </div>
-              </div>
-              <div class="card-body">
-                <span class="brand-name">NEW BALANCE</span>
-                <h3 class="product-title">NB Made in USA 990v5</h3>
-                <div class="price-group">
-                  <span class="price-now">2 400 000 so'm</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="catalog-grid" id="catalogGrid"></div>
 
           <div class="pagination-section">
             <div class="progress-track">
-              <div class="progress-fill"></div>
+              <div class="progress-fill" id="progressFill"></div>
             </div>
-            <div class="info-text">9 tadan 248 ta mahsulot ko'rsatilmoqda</div>
-            <button class="load-more-btn">
-              Yana 24 tasini yuklash
+            <div class="info-text" id="paginationInfo">0 tadan 0 ta mahsulot ko'rsatilmoqda</div>
+            <button class="load-more-btn" id="loadMoreBtn">
+              <span>Yana 24 tasini yuklash</span>
               <svg viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-                />
+                <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
               </svg>
             </button>
           </div>
@@ -479,14 +225,7 @@
             </p>
             <div class="original-div">
               <h3 class="original-text-2">BATAFSIL O'QISH</h3>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </div>
@@ -554,20 +293,9 @@
             </p>
           </div>
           <div class="inputs">
-            <input
-              type="email"
-              placeholder="Email manzilingiz"
-              class="inpt-2"
-            />
+            <input type="email" placeholder="Email manzilingiz" class="inpt-2" />
             <button type="button" class="input-img-btn">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </button>
@@ -575,14 +303,448 @@
         </div>
       </div>
       <div class="random-texts">
-        <h3 class="barcha">
-          &copy; 2026 KROSSDROP. Barcha huquqlar himoyalangan.
-        </h3>
+        <h3 class="barcha">&copy; 2026 KROSSDROP. Barcha huquqlar himoyalangan.</h3>
         <div class="siyosati">
           <a href="#" class="siyosati-text-1">Maxfiylik siyosati</a>
           <a href="#" class="siyosati-text-2">Foydalanish shartlari</a>
         </div>
       </div>
     </footer>
+
+    <script>
+      const rawProducts = [
+        { id: 1, name: "Nike Air Max Pulse", brand: "nike", brandTitle: "NIKE SPORTSWEAR", category: "running", price: 1450000, sizes: [40, 41], badge: "TREND", badgeClass: "badge--lime", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" },
+        { id: 2, name: "Adidas Forum Low", brand: "adidas", brandTitle: "ADIDAS ORIGINALS", category: "lifestyle", price: 980000, sizes: [38, 39, 42], badge: "NEW", badgeClass: "badge--pink", img: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=600&q=80" },
+        { id: 3, name: "NB 2002R Protection Pack", brand: "nb", brandTitle: "NEW BALANCE", category: "limited", price: 2100000, sizes: [41, 42, 43], badge: "LIMITED", badgeClass: "badge--white", img: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=600&q=80" },
+        { id: 4, name: "Air Jordan 1 High OG", brand: "jordan", brandTitle: "JORDAN", category: "basketball", price: 1500000, sizes: [40, 42], badge: "HOT", badgeClass: "badge--lime", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" },
+        { id: 5, name: "Yeezy Boost 350 V2", brand: "adidas", brandTitle: "ADIDAS / YEEZY", category: "lifestyle", price: 1600000, sizes: [39, 40, 43], badge: "POPULAR", badgeClass: "badge--pink", img: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=600&q=80" },
+        { id: 6, name: "Nike Pegasus Trail 4", brand: "nike", brandTitle: "NIKE RUNNING", category: "running", price: 1350000, sizes: [38, 40, 41], badge: "SPECIAL", badgeClass: "badge--white", img: "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=600&q=80" },
+        { id: 7, name: "Nike Vapor 15 Elite", brand: "nike", brandTitle: "NIKE FOOTBALL", category: "football", price: 1800000, sizes: [39, 42], badge: "NEW", badgeClass: "badge--lime", img: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=600&q=80" },
+        { id: 8, name: "Nike SB Dunk Low Pro", brand: "nike", brandTitle: "NIKE SB", category: "skate", price: 1100000, sizes: [40, 41, 42], badge: "SALE", badgeClass: "badge--pink", img: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=600&q=80" },
+        { id: 9, name: "NB Made in USA 990v5", brand: "nb", brandTitle: "NEW BALANCE", category: "running", price: 2400000, sizes: [38, 42, 43], badge: "EXCLUSIVE", badgeClass: "badge--white", img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80" }
+      ];
+
+      const additionalNames = [
+        "Air Max 270 React", "Dunk Low Retro", "Jordan 4 Retro Thunder", "Ultraboost Light",
+        "New Balance 550 White", "ZoomX Vaporfly Next%", "Metcon 9 Amp", "Air Force 1 '07",
+        "Jordan 1 Low OG", "NMD_R1 V3", "Gazelle Bold", "Samba OG Leather",
+        "New Balance 1906R", "Jordan 3 Retro Craft", "Air Max 90 Terrascape", "Blazer Mid '77",
+        "React Infinity 3", "Invincible Run 3", "Supernova Stride", "Forum Exhibit Low",
+        "New Balance 9060", "Air Jordan 11 Cherry", "LeBron XXI 21", "KD 16 EP"
+      ];
+
+      const brandsList = ["nike", "jordan", "adidas", "nb"];
+      const brandTitles = { nike: "NIKE ATHLETICS", jordan: "JORDAN BRAND", adidas: "ADIDAS PERFORMANCE", nb: "NEW BALANCE ATHLETICS" };
+      const categoriesList = ["running", "lifestyle", "basketball", "football", "skate", "limited"];
+      const badgesList = [
+        { text: "HOT", class: "badge--lime" },
+        { text: "NEW", class: "badge--pink" },
+        { text: "BEST", class: "badge--white" },
+        { text: "DROP", class: "badge--lime" },
+        { text: "SALE", class: "badge--pink" }
+      ];
+      const imagesList = [
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80"
+      ];
+
+      const products = [...rawProducts];
+      for (let i = 10; i <= 248; i++) {
+        const nameIndex = (i - 10) % additionalNames.length;
+        const brand = brandsList[i % brandsList.length];
+        const category = categoriesList[i % categoriesList.length];
+        const badgeObj = badgesList[i % badgesList.length];
+        const img = imagesList[i % imagesList.length];
+        const price = 650000 + ((i * 37000) % 3800000);
+        const sizes = [];
+        if (i % 2 === 0) sizes.push(38, 40, 42);
+        if (i % 3 === 0) sizes.push(39, 41);
+        if (i % 5 === 0) sizes.push(43);
+        if (sizes.length === 0) sizes.push(40, 41);
+
+        products.push({
+          id: i,
+          name: `${additionalNames[nameIndex]} ${i > 33 ? '#' + i : ''}`.trim(),
+          brand: brand,
+          brandTitle: brandTitles[brand],
+          category: category,
+          price: price,
+          sizes: sizes,
+          badge: badgeObj.text,
+          badgeClass: badgeObj.class,
+          img: img
+        });
+      }
+
+      let activeCategory = "all";
+      let selectedBrands = ["nike", "jordan", "adidas", "nb"];
+      let selectedSizes = [];
+      let maxPrice = 5000000;
+      let sortBy = "newest";
+
+      let filteredProducts = [];
+      let visibleCount = 9;
+      let cart = [];
+      let wishlist = [];
+
+      const catalogGrid = document.getElementById("catalogGrid");
+      const loadMoreBtn = document.getElementById("loadMoreBtn");
+      const paginationInfo = document.getElementById("paginationInfo");
+      const progressFill = document.getElementById("progressFill");
+      const totalProductsCount = document.getElementById("totalProductsCount");
+      const activeFiltersContainer = document.getElementById("activeFiltersContainer");
+      const priceRange = document.getElementById("priceRange");
+      const priceOutput = document.getElementById("priceOutput");
+
+      const cartTrigger = document.getElementById("cartTrigger");
+      const cartDrawer = document.getElementById("cartDrawer");
+      const cartOverlay = document.getElementById("cartOverlay");
+      const closeCartDrawer = document.getElementById("closeCartDrawer");
+      const cartItems = document.getElementById("cartItems");
+      const cartBadge = document.getElementById("cartBadge");
+      const cartCountHeader = document.getElementById("cartCountHeader");
+      const cartTotalPrice = document.getElementById("cartTotalPrice");
+
+      const wishlistBadge = document.getElementById("wishlistBadge");
+
+      const searchModal = document.getElementById("searchModal");
+      const openSearchBtn = document.getElementById("openSearchBtn");
+      const closeSearchModal = document.getElementById("closeSearchModal");
+      const searchInput = document.getElementById("searchInput");
+      const searchResults = document.getElementById("searchResults");
+
+      function formatPrice(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " so'm";
+      }
+
+      function updateFilters() {
+        filteredProducts = products.filter(p => {
+          const matchCat = activeCategory === "all" || p.category === activeCategory;
+          const matchBrand = selectedBrands.includes(p.brand);
+          const matchSize = selectedSizes.length === 0 || p.sizes.some(s => selectedSizes.includes(s));
+          const matchPrice = p.price <= maxPrice;
+          return matchCat && matchBrand && matchSize && matchPrice;
+        });
+
+        if (sortBy === "price-low") {
+          filteredProducts.sort((a, b) => a.price - b.price);
+        } else if (sortBy === "price-high") {
+          filteredProducts.sort((a, b) => b.price - a.price);
+        } else if (sortBy === "name") {
+          filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+        } else {
+          filteredProducts.sort((a, b) => b.id - a.id);
+        }
+
+        visibleCount = 9;
+        renderActiveChips();
+        renderProducts();
+      }
+
+      function renderActiveChips() {
+        activeFiltersContainer.innerHTML = "";
+        selectedBrands.forEach(b => {
+          const chip = document.createElement("div");
+          chip.className = "nike-button";
+          chip.innerHTML = `${b.toUpperCase()} &times;`;
+          chip.onclick = () => {
+            selectedBrands = selectedBrands.filter(x => x !== b);
+            document.querySelectorAll("#brandFilters input").forEach(cb => {
+              if (cb.value === b) cb.checked = false;
+            });
+            updateFilters();
+          };
+          activeFiltersContainer.appendChild(chip);
+        });
+
+        selectedSizes.forEach(s => {
+          const chip = document.createElement("div");
+          chip.className = "nike-button";
+          chip.innerHTML = `O'LCHAM ${s} &times;`;
+          chip.onclick = () => {
+            selectedSizes = selectedSizes.filter(x => x !== s);
+            document.querySelectorAll("#sizeFilters button").forEach(btn => {
+              if (parseInt(btn.dataset.size) === s) btn.classList.remove("active");
+            });
+            updateFilters();
+          };
+          activeFiltersContainer.appendChild(chip);
+        });
+      }
+
+      function renderProducts() {
+        catalogGrid.innerHTML = "";
+        const currentList = filteredProducts.slice(0, visibleCount);
+
+        totalProductsCount.innerText = `(${filteredProducts.length} TA MAHSULOT)`;
+
+        if (currentList.length === 0) {
+          catalogGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 0; color: var(--text-muted); font-size: 18px;">Mahsulotlar topilmadi. Filtrni o'zgartirib ko'ring.</div>`;
+        } else {
+          currentList.forEach(p => {
+            const isFav = wishlist.includes(p.id);
+            const card = document.createElement("div");
+            card.className = `product-item brand-${p.brand} cat-${p.category}`;
+            card.innerHTML = `
+              <div class="card-header">
+                <span class="badge ${p.badgeClass}">${p.badge}</span>
+                <button class="wishlist-btn ${isFav ? 'active' : ''}" data-id="${p.id}">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                  </svg>
+                </button>
+                <div class="image-holder">
+                  <img class="imgg" src="${p.img}" alt="${p.name}" loading="lazy" />
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="brand-name">${p.brandTitle}</span>
+                <h3 class="product-title">${p.name}</h3>
+                <div class="price-group">
+                  <span class="price-now">${formatPrice(p.price)}</span>
+                </div>
+                <button class="add-to-cart-btn" data-id="${p.id}">SAVATCHAGA QO'SHISH</button>
+              </div>
+            `;
+            catalogGrid.appendChild(card);
+          });
+        }
+
+        const displayed = Math.min(visibleCount, filteredProducts.length);
+        paginationInfo.innerText = `${displayed} tadan ${filteredProducts.length} ta mahsulot ko'rsatilmoqda`;
+        const percentage = filteredProducts.length > 0 ? (displayed / filteredProducts.length) * 100 : 0;
+        progressFill.style.width = `${percentage}%`;
+
+        if (visibleCount >= filteredProducts.length) {
+          loadMoreBtn.style.display = "none";
+        } else {
+          loadMoreBtn.style.display = "inline-flex";
+        }
+      }
+
+      loadMoreBtn.addEventListener("click", () => {
+        loadMoreBtn.classList.add("loading");
+        setTimeout(() => {
+          visibleCount += 24;
+          renderProducts();
+          loadMoreBtn.classList.remove("loading");
+        }, 400);
+      });
+
+      document.getElementById("categoryChips").addEventListener("click", e => {
+        if (e.target.classList.contains("filter-chip")) {
+          document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+          e.target.classList.add("active");
+          activeCategory = e.target.dataset.cat;
+          updateFilters();
+        }
+      });
+
+      document.getElementById("brandFilters").addEventListener("change", () => {
+        selectedBrands = Array.from(document.querySelectorAll("#brandFilters input:checked")).map(cb => cb.value);
+        updateFilters();
+      });
+
+      document.getElementById("sizeFilters").addEventListener("click", e => {
+        if (e.target.classList.contains("number")) {
+          const sz = parseInt(e.target.dataset.size);
+          if (selectedSizes.includes(sz)) {
+            selectedSizes = selectedSizes.filter(s => s !== sz);
+            e.target.classList.remove("active");
+          } else {
+            selectedSizes.push(sz);
+            e.target.classList.add("active");
+          }
+          updateFilters();
+        }
+      });
+
+      priceRange.addEventListener("input", e => {
+        maxPrice = parseInt(e.target.value);
+        priceOutput.innerText = (maxPrice / 1000000).toFixed(1) + "m so'm";
+      });
+
+      document.getElementById("applyFilterBtn").addEventListener("click", () => {
+        updateFilters();
+      });
+
+      document.getElementById("resetFilterBtn").addEventListener("click", () => {
+        activeCategory = "all";
+        selectedBrands = ["nike", "jordan", "adidas", "nb"];
+        selectedSizes = [];
+        maxPrice = 5000000;
+        priceRange.value = 5000000;
+        priceOutput.innerText = "5m so'm";
+        document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+        document.querySelector('.filter-chip[data-cat="all"]').classList.add("active");
+        document.querySelectorAll("#brandFilters input").forEach(cb => cb.checked = true);
+        document.querySelectorAll("#sizeFilters button").forEach(b => b.classList.remove("active"));
+        updateFilters();
+      });
+
+      document.getElementById("sortSelect").addEventListener("change", e => {
+        sortBy = e.target.value;
+        updateFilters();
+      });
+
+      catalogGrid.addEventListener("click", e => {
+        const cartBtn = e.target.closest(".add-to-cart-btn");
+        if (cartBtn) {
+          const id = parseInt(cartBtn.dataset.id);
+          addToCart(id);
+          return;
+        }
+
+        const wishBtn = e.target.closest(".wishlist-btn");
+        if (wishBtn) {
+          const id = parseInt(wishBtn.dataset.id);
+          toggleWishlist(id);
+        }
+      });
+
+      function addToCart(id) {
+        const item = cart.find(x => x.id === id);
+        if (item) {
+          item.qty++;
+        } else {
+          cart.push({ id, qty: 1 });
+        }
+        updateCartUI();
+        openCart();
+      }
+
+      function updateCartUI() {
+        const totalItems = cart.reduce((acc, cur) => acc + cur.qty, 0);
+        cartBadge.innerText = totalItems;
+        cartCountHeader.innerText = totalItems;
+
+        let total = 0;
+        cartItems.innerHTML = "";
+
+        if (cart.length === 0) {
+          cartItems.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 40px;">Savatchangiz bo'sh.</div>`;
+        } else {
+          cart.forEach(c => {
+            const prod = products.find(p => p.id === c.id);
+            total += prod.price * c.qty;
+
+            const div = document.createElement("div");
+            div.className = "cart-item";
+            div.innerHTML = `
+              <img src="${prod.img}" alt="${prod.name}" />
+              <div class="cart-item-info">
+                <h4>${prod.name}</h4>
+                <p>${formatPrice(prod.price)}</p>
+                <div class="cart-item-qty">
+                  <button class="qty-btn dec-qty" data-id="${prod.id}">-</button>
+                  <span>${c.qty}</span>
+                  <button class="qty-btn inc-qty" data-id="${prod.id}">+</button>
+                </div>
+              </div>
+              <button class="cart-remove-btn" data-id="${prod.id}">&times;</button>
+            `;
+            cartItems.appendChild(div);
+          });
+        }
+
+        cartTotalPrice.innerText = formatPrice(total);
+      }
+
+      cartItems.addEventListener("click", e => {
+        const id = parseInt(e.target.dataset.id);
+        if (e.target.classList.contains("inc-qty")) {
+          const item = cart.find(x => x.id === id);
+          if (item) item.qty++;
+          updateCartUI();
+        } else if (e.target.classList.contains("dec-qty")) {
+          const item = cart.find(x => x.id === id);
+          if (item) {
+            item.qty--;
+            if (item.qty <= 0) cart = cart.filter(x => x.id !== id);
+          }
+          updateCartUI();
+        } else if (e.target.classList.contains("cart-remove-btn")) {
+          cart = cart.filter(x => x.id !== id);
+          updateCartUI();
+        }
+      });
+
+      function openCart() {
+        cartDrawer.classList.add("open");
+        cartOverlay.classList.add("open");
+      }
+
+      function closeCart() {
+        cartDrawer.classList.remove("open");
+        cartOverlay.classList.remove("open");
+      }
+
+      cartTrigger.addEventListener("click", openCart);
+      closeCartDrawer.addEventListener("click", closeCart);
+      cartOverlay.addEventListener("click", closeCart);
+
+      function toggleWishlist(id) {
+        if (wishlist.includes(id)) {
+          wishlist = wishlist.filter(x => x !== id);
+        } else {
+          wishlist.push(id);
+        }
+        wishlistBadge.innerText = wishlist.length;
+        renderProducts();
+      }
+
+      openSearchBtn.addEventListener("click", () => {
+        searchModal.classList.add("open");
+        searchInput.focus();
+      });
+
+      closeSearchModal.addEventListener("click", () => {
+        searchModal.classList.remove("open");
+      });
+
+      searchInput.addEventListener("input", e => {
+        const q = e.target.value.toLowerCase().trim();
+        searchResults.innerHTML = "";
+        if (!q) return;
+
+        const results = products.filter(p => p.name.toLowerCase().includes(q) || p.brandTitle.toLowerCase().includes(q)).slice(0, 5);
+
+        if (results.length === 0) {
+          searchResults.innerHTML = `<div style="padding: 15px; color: var(--text-muted);">Natija topilmadi</div>`;
+        } else {
+          results.forEach(p => {
+            const item = document.createElement("div");
+            item.className = "search-result-item";
+            item.innerHTML = `
+              <img src="${p.img}" alt="${p.name}" />
+              <div>
+                <h4>${p.name}</h4>
+                <p>${formatPrice(p.price)}</p>
+              </div>
+            `;
+            item.onclick = () => {
+              searchModal.classList.remove("open");
+              activeCategory = "all";
+              selectedBrands = ["nike", "jordan", "adidas", "nb"];
+              updateFilters();
+              const found = document.querySelector(`.add-to-cart-btn[data-id="${p.id}"]`);
+              if (found) {
+                found.closest(".product-item").scrollIntoView({ behavior: "smooth", block: "center" });
+              }
+            };
+            searchResults.appendChild(item);
+          });
+        }
+      });
+
+      updateFilters();
+    </script>
   </body>
 </html>
